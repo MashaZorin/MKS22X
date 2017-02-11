@@ -24,13 +24,13 @@ public class QueenBoard{
     }
 
     private boolean solveH(int col){
-	if (col < board.size){
-	    for (int row = 0; row < board[].size; row ++){
+	if (col < board.length){
+	    for (int row = 0; row < board[0].length; row ++){
 		if (board[col][row] == 0){
 		    board[col][row] = 1;
-		    for (int i = 0; i < board.size * board[].size; i ++){
-			c = i / board.size;
-			r = i % board.size;
+		    for (int i = 0; i < board.length * board[0].length; i ++){
+			int c = i / board.length;
+			int r = i % board.length;
 			if (c != col && r == row){
 			    board[c][r] -= 1;
 			}
@@ -43,9 +43,9 @@ public class QueenBoard{
 		    }
 		    if (!solveH(col + 1)){
 			board[col][row] = -1;
-			for (int i = 0; i < board.size * board[].size; i ++){
-			    c = i / board.size;
-			    r = i % board.size;
+			for (int i = 0; i < board.length * board[0].length; i ++){
+			    int c = i / board.length;
+			    int r = i % board.length;
 			    if (c != col && r == row){
 				board[c][r] += 1;
 			    }
