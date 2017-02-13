@@ -7,6 +7,11 @@ public class QueenBoard{
 
     public QueenBoard(int size){
 	board = new int[size][size];
+	for (int i = 0; i < size * size; i ++){
+	    int r = i % size;
+	    int c = i / size;
+	    board[c][r] = 0;
+	}
     }
 
     /**
