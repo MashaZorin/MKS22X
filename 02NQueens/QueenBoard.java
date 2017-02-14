@@ -12,6 +12,7 @@ public class QueenBoard{
 	    int c = i % size;
 	    board[c][r] = 0;
 	}
+	solutionCount = -1;
     }
 
     /**
@@ -84,8 +85,62 @@ public class QueenBoard{
 
      */
 
+    public void countSolutions(int col){
+        if (solutionCount < 0){
+	    solutionCount = 0;
+	}
+	if (col < board.length){
+	    for (int row = 0; row < board[0].length; row ++){
+		if (board[col][row] == 0){
+		    board[col][row] = 1;
+		    for (int i = 0; i < board.length * board[0].length; i ++){
+			int c = i % board.length;
+			int r = i / board.length;
+			if (c != col || r != row){
+			    if (r == row){
+				board[c][r] -= 1;
+			    }
+			    else if (c == col){
+				board[c][r] -= 1;
+			    }
+			    else if (row - r == col - c || r - row == col - c){
+				board[c][r] -= 1;
+			    }
+			}
+		    }
+		    countSolutions(col + 1);
+		    board[col][row] = 0;
+		    for (int i = 0; i < board.length * board[0].length; i ++){
+			int c = i % board.length;
+			int r = i / board.length;
+			if (c != col || r != row){
+			    if (r == row){
+				board[c][r] += 1;
+			    }
+			    else if (c == col){
+				board[c][r] += 1;
+			    }
+			    else if (row - r == col - c || r - row == col - c){
+				board[c][r] += 1;
+			    }
+			}
+		    }
+		}
+	    }
+	}
+	else {
+	    solutionCount += 1;
+	}
+    }
+
     public int getSolutionCount(){
-    	return -1;
+	for (int i = 0; i < board.length * board[0].length; i ++){
+	    int r = i / board.length;
+	    int c = i % board.length;
+	    board[c][r] = 0;
+	}
+	countSolutions(0);
+    	return solutionCount;
     }
 
     /**toString
@@ -93,6 +148,18 @@ public class QueenBoard{
      *all others are displayed as underscores '_'
      */
     public String toString(){
-    	return "";
+	String boardStr = "";
+    	for (int row = 0; row < board[0].length; row ++){
+	    for (int col = 0; col < board.length; col ++){
+		if (board[col][row] <= 0){
+		    boardStr += "_,";
+		}
+		else{
+		    boardStr += "Q, ";
+		}
+	    }
+	    boardStr += "\n";
+	}
+	return boardStr;
     }
 }
