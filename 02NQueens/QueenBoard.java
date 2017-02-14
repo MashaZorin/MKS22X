@@ -8,8 +8,8 @@ public class QueenBoard{
     public QueenBoard(int size){
 	board = new int[size][size];
 	for (int i = 0; i < size * size; i ++){
-	    int r = i % size;
-	    int c = i / size;
+	    int r = i / size;
+	    int c = i % size;
 	    board[c][r] = 0;
 	}
     }
@@ -23,8 +23,7 @@ public class QueenBoard{
      *final configuration of the board after adding 
      *all n queens. Uses solveH
      */
-    public boolean solve()
-    {
+    public boolean solve(){
 	return solveH(0);
     }
 
@@ -34,34 +33,37 @@ public class QueenBoard{
 		if (board[col][row] == 0){
 		    board[col][row] = 1;
 		    for (int i = 0; i < board.length * board[0].length; i ++){
-			int c = i / board.length;
-			int r = i % board.length;
-			if (c != col && r == row){
-			    board[c][r] -= 1;
-			}
-			else if (c == col && r != row){
-			    board[c][r] -= 1;
-			}
-			else if (row - r == col - c){
-			    board[c][r] -= 1;
+			int c = i % board.length;
+			int r = i / board.length;
+			if (c != col || r != row){
+			    if (r == row){
+				board[c][r] -= 1;
+			    }
+			    else if (c == col){
+				board[c][r] -= 1;
+			    }
+			    else if (row - r == col - c || r - row == col - c){
+				board[c][r] -= 1;
+			    }
 			}
 		    }
 		    if (!solveH(col + 1)){
-			board[col][row] = -1;
+			board[col][row] = 0;
 			for (int i = 0; i < board.length * board[0].length; i ++){
-			    int c = i / board.length;
-			    int r = i % board.length;
-			    if (c != col && r == row){
-				board[c][r] += 1;
-			    }
-			    else if (c == col && r != row){
-				board[c][r] += 1;
-			    }
-			    else if (row - r == col - c && r != row){
-				board[c][r] += 1;
+			    int c = i % board.length;
+			    int r = i / board.length;
+			    if (c != col || r != row){
+				if (r == row){
+				    board[c][r] += 1;
+				}
+				else if (c == col){
+				    board[c][r] += 1;
+				}
+				else if (row - r == col - c || r - row == col - c){
+				    board[c][r] += 1;
+				}
 			    }
 			}
-			return solveH(col);
 		    }
 		    else{
 			return true;
