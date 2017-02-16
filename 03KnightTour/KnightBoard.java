@@ -14,19 +14,31 @@ public class KnightBoard{
     }
 
     private boolean solveH(int row ,int col, int level){
-	if (row < board.length && col < board.length[0] && row >= 0 && col >= 0){
-	    if (level == 1){
-		board[row][col] = level;
-		return solveH(row, col, level + 1);
+	if (level < board.length * board.length[0]){
+	    if (row < board.length && col < board.length[0] && row >= 0 && col >= 0){
+		if (level == 1){
+		    board[row][col] = level;
+		    return solveH(row, col, level + 1);
+		}
+		else{
+		    if 
+		}
 	    }
-	    else{
-		
-	    }
+	}
+	else{
+	    return true;
 	}
     }
 
-    private boolean isGoodSpot(int row, int col){
-	return;
+    private boolean findNextSpot(int row, int col){
+	return row + 2 < board.length && col - 1 < board[0].length && board[row + 2][col - 1] == 0 ||
+	    row + 2 < board.length && col + 1 < board[0].length && board[row + 2][col + 1] == 0 ||
+	    row - 2 < board.length && col - 1 < board[0].length && board[row - 2][col - 1] == 0 ||
+	    row - 2 < board.length && col + 1 < board[0].length && board[row - 2][col + 1] == 0 ||
+	    row + 1 < board.length && col - 2 < board[0].length && board[row + 1][col - 2] == 0 ||
+	    row + 1 < board.length && col + 2 < board[0].length && board[row + 1][col + 2] == 0 ||
+	    row - 1 < board.length && col - 2 < board[0].length && board[row - 1][col - 2] == 0 ||
+	    row - 1 < board.length && col + 2 < board[0].length && board[row - 1][col + 2] == 0;
     }
 
     public String toString(){
