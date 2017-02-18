@@ -15,17 +15,24 @@ public class KnightBoard{
     }
 
     private boolean solveH(int row ,int col, int level){
-	if (level < board.length * board[0].length){
+	if (level <= board.length * board[0].length){
 	    if (isGoodSpot(row, col)){
 		board[row][col] = level;
-		return solveH(row + 2, col + 1, level + 1) ||
+		if (!(solveH(row + 2, col + 1, level + 1) ||
 		    solveH(row + 2, col - 1, level + 1) ||
 		    solveH(row + 1, col + 2, level + 1) ||
 		    solveH(row + 1, col - 2, level + 1) ||
 		    solveH(row - 2, col + 1, level + 1) ||
 		    solveH(row - 2, col - 1, level + 1) ||
 		    solveH(row - 1, col + 2, level + 1) ||
-		    solveH(row - 1, col - 2, level + 1);
+		      solveH(row - 1, col - 2, level + 1))){
+
+		    board[row][col] = 0;
+		    return false;
+		}
+		else{
+		    return true;
+		}
 	    }
 	    else{
 		return false;
@@ -53,7 +60,7 @@ public class KnightBoard{
 			for (int j = 0; j < i; j ++){
 			    boardStr += " ";
 			}
-			boardStr += board[r][c];
+			boardStr += board[r][c] + " ";
 		    }
 		}
 	    }
