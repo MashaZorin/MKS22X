@@ -19,16 +19,7 @@ public class Maze{
 
     */
 
-    public Maze(String filename){
-	File infile = new File(filename);// can be a path"/full/path/to/file.txt" 
-        Scanner inf = new Scanner(text);
-        int lineNumber = 1;
-        while(inf.hasNextLine()){
-            String line = inf.nextLine();
-	    for (int i = 0; i < line.length(); i ++){
-		maze[
-            System.out.println(line);
-        }       
+    public Maze(String filename){  
         //COMPLETE CONSTRUCTOR
     }
 
@@ -38,6 +29,13 @@ public class Maze{
 
     }
 
+    private void wait(int millis){ //ADDED SORRY!
+         try {
+             Thread.sleep(millis);
+         }
+         catch (InterruptedException e) {
+         }
+     }
 
     public void clearTerminal(){
 
@@ -52,6 +50,14 @@ public class Maze{
     */
     public boolean solve(){
 	    int startx = 0,starty = 0;
+	    for (int y = 0; y < maze.length; y ++){
+		for (int x = 0; x < maze[0].length; x ++){
+		    if (maze[y][x] == 'S'){
+			startx = x;
+			starty = y;
+		    }
+		}
+	    }
 
             //Initialize startx and starty with the location of the S. 
 
@@ -82,6 +88,19 @@ public class Maze{
         }
 
         //COMPLETE SOLVE
+	if (maze[y][x] == ' '){
+	    maze[y][x] = '@';
+	    return solve(x + 1, y    ) ||
+		   solve(x - 1, y    ) ||
+		   solve(x    , y + 1) ||
+		   solve(x    , y - 1);
+	}
+	else if (maze[y][x] == 'E'){
+	    return true;
+	}
+	else if (maze[y][x] == '#'){
+	    return false;
+	}
 
         return false; //so it compiles
     }
