@@ -21,6 +21,30 @@ public class Maze{
 
     public Maze(String filename){  
         //COMPLETE CONSTRUCTOR
+	try{
+	    File text = new File(filename);// can be a path"/full/path/to/file.txt" 
+	    Scanner inf = new Scanner(text);
+	    int numRows = 1;
+	    int numCols = 0;
+	    String data = "";
+	    while(inf.hasNextLine()){
+		String line = inf.nextLine();
+		if (numRows == 1){
+		    numCols = line.length();
+		}
+		data += line;
+		numRows ++;
+	    }
+	    maze = new char[numRows][numCols];
+	    for (int r = 0; r < numRows; r ++){
+		for (int c = 0; c < numCols; c ++){
+		    maze[r][c] = data.charAt(r * (numCols - 1) + c);
+		}
+	    }
+	}
+	catch(FileNotFoundException e){
+	}
+	animate = false;
     }
 
     public void setAnimate(boolean b){
