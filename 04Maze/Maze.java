@@ -19,8 +19,45 @@ public class Maze{
 
     */
 
-    public Maze(String filename){  
-        //COMPLETE CONSTRUCTOR
+    public Maze(String filename){
+	try{
+	    File text = new File(filename);// can be a path"/full/path/to/file.txt" 
+	    Scanner inf = new Scanner(text);
+	    String data = "";
+	    int numRows = 1;
+	    int numCols = 1;
+	    while(inf.hasNextLine()){
+		String line = inf.nextLine();
+		if (numRows == 1){
+		    for (int i = 0; i < line.length(); i ++){
+			numCols ++;
+		    }
+		}
+		data += line;
+		numRows ++;
+	    }
+	    maze = new char[numRows][numCols];
+	    int E = 0;
+	    int S = 0;
+	    for (int r = 0; r < numRows - 1; r ++){
+		for (int c = 0; c < numCols - 1; c ++){
+		    int i = r * (numCols - 1) + c;
+		    if (data.charAt(i) == 'E'){
+			E ++;
+		    }
+		    else if (data.charAt(i) == 'S'){
+			S ++;
+		    }
+		    maze[r][c] = data.charAt(i);
+		}
+	    }
+	    if (E != 1 || S != 1){
+		throw new IllegalArgumentException();
+	    }
+	}
+	catch(FileNotFoundException e){
+	}
+	animate = false;
     }
 
     public void setAnimate(boolean b){
@@ -58,10 +95,11 @@ public class Maze{
 		    }
 		}
 	    }
+	    //System.out.println
 
             //Initialize startx and starty with the location of the S. 
 
-            maze[startx][starty] = ' ';//erase the S, and start solving!
+            maze[starty][startx] = ' ';//erase the S, and start solving!
             return solve(startx,starty);
     }
 
@@ -88,21 +126,40 @@ public class Maze{
         }
 
         //COMPLETE SOLVE
-	if (maze[y][x] == ' '){
-	    maze[y][x] = '@';
-	    return solve(x + 1, y    ) ||
-		   solve(x - 1, y    ) ||
-		   solve(x    , y + 1) ||
-		   solve(x    , y - 1);
-	}
-	else if (maze[y][x] == 'E'){
-	    return true;
-	}
-	else if (maze[y][x] == '#'){
-	    return false;
+	if (x < maze[0].length && x >= 0 && y < maze.length && y >= 0){
+	    if (maze[y][x] == ' '){
+		maze[y][x] = '@';
+		System.out.println(maze[y][x]);
+		if( solve(x + 1, y    ) ||
+		    solve(x - 1, y    ) ||
+		    solve(x    , y + 1) ||
+		    solve(x    , y - 1)){
+		    return true;
+		}
+		else{
+		    maze[y][x] = '.';
+		}
+	    }
+	    else if (maze[y][x] == 'E'){
+		return true;
+	    }
+	    else if (maze[y][x] == '#'){
+		return false;
+	    }
 	}
 
         return false; //so it compiles
+    }
+
+    public String toString(){
+	String str = "";
+	for (int r = 0; r < maze.length; r ++){
+	    for (int c = 0; c < maze[0].length; c ++){
+		str += maze[r][c];
+	    }
+	    str += "\n";
+	}
+	return str;
     }
 
 
