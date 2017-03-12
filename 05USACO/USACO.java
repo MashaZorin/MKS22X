@@ -1,4 +1,6 @@
+import java.io.File;
 import java.util.Scanner;
+import java.io.FileNotFoundException;
 
 public class USACO{
     public USACO(){}
@@ -12,7 +14,7 @@ public class USACO{
 	    int numInstructions = inf.nextInt();
 
 	    int[][]land = new int[rows][cols];
-	    for (int i = 0; i < rows * cols; r ++){
+	    for (int i = 0; i < rows * cols; i ++){
 		int r = i / cols;
 		int c = i % cols;
 		land[r][c] = inf.nextInt();
@@ -21,7 +23,7 @@ public class USACO{
 		int row = inf.nextInt();
 		int col = inf.nextInt();
 		int lower = inf.nextInt();
-		stomp(row, col, lower);
+		stomp(land, row, col, lower);
 	    }
 	    int aggrDepth = 0;
 	    for (int i = 0; i < rows * cols; i ++){
@@ -34,9 +36,36 @@ public class USACO{
 	    return aggrDepth * 72 * 72;
 	}
 	catch(FileNotFoundException e){
+	    System.out.println("File not found");
+	}
+	return 0;
+    }
+
+    private void stomp(int[][]land, int r, int c, int lower){
+	int[] spots = {land[r][c    ], land[r + 1][c    ], land[r + 2][c    ],
+		       land[r][c + 1], land[r + 1][c + 1], land[r + 2][c + 1],
+		       land[r][c + 2], land[r + 1][c + 2], land[r + 2][c + 2]};
+	int maxElev = max(spots);
+	while (lower > 0){
+	    for (int i = 0; i < spots.length; i ++){
+		if (spots[i] == maxElev){
+		    spots[i] --;
+		}
+	    }
+	    lower --;
 	}
     }
 
-    public int silver(String filename){
+    private int max(int[] ary){
+	int maxN = 0;
+	for (int i = 0; i < ary.length; i ++){
+	    if (maxN < ary[i]){
+		maxN = ary[i];
+	    }
+	}
+	return maxN;
     }
+
+    //public int silver(String filename){
+    //}
 }
