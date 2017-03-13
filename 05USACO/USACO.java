@@ -20,8 +20,8 @@ public class USACO{
 		land[r][c] = inf.nextInt();
 	    }
 	    for (int i = 0; i < numInstructions; i ++){
-		int row = inf.nextInt();
-		int col = inf.nextInt();
+		int row = inf.nextInt() - 1;
+		int col = inf.nextInt() - 1;
 		int lower = inf.nextInt();
 		stomp(land, row, col, lower);
 	    }
@@ -41,6 +41,18 @@ public class USACO{
 	return 0;
     }
 
+    //for testing
+    private static void printAry(int[][]ary){
+	String out = "";
+	for (int r = 0; r < ary.length; r ++){
+	    for (int c = 0; c < ary[0].length; c ++){
+		out += ary[r][c] + " ";
+	    }
+	    out += "\n";
+	}
+	System.out.println(out);
+    }
+
     private void stomp(int[][]land, int r, int c, int lower){
 	int[] spots = {land[r][c    ], land[r + 1][c    ], land[r + 2][c    ],
 		       land[r][c + 1], land[r + 1][c + 1], land[r + 2][c + 1],
@@ -52,8 +64,18 @@ public class USACO{
 		    spots[i] --;
 		}
 	    }
+	    maxElev --;
 	    lower --;
 	}
+	land[r    ][c    ] = spots[0];
+	land[r + 1][c    ] = spots[1];
+	land[r + 2][c    ] = spots[2];
+	land[r    ][c + 1] = spots[3];
+	land[r + 1][c + 1] = spots[4];
+	land[r + 2][c + 1] = spots[5];
+	land[r    ][c + 2] = spots[6];
+	land[r + 1][c + 2] = spots[7];
+	land[r + 2][c + 2] = spots[8];
     }
 
     private int max(int[] ary){
@@ -66,6 +88,11 @@ public class USACO{
 	return maxN;
     }
 
-    //public int silver(String filename){
-    //}
+    public int silver(String filename){
+    }
+
+    public static void main(String[]args){
+	USACO test = new USACO();
+	System.out.println(test.bronze("test1.txt"));
+    }
 }
