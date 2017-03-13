@@ -89,10 +89,66 @@ public class USACO{
     }
 
     public int silver(String filename){
+	try{
+	    Scanner inf = new Scanner(new File(filename));
+	    int rows = inf.nextInt();
+	    int cols = inf.nextInt();
+	    int time = inf.nextInt();
+
+	    int[][]board = new int[rows][cols];
+	    for (int r = 0; r < rows; r ++){
+		String line = inf.next();
+		for (int c = 0; c < cols; c ++){
+		    if (line.charAt(c) == '.'){
+			board[r][c] = 0;
+		    }
+		    else if (line.charAt(c) == '*'){
+			board[r][c] = -1;
+		    }
+		}
+	    }
+	    int r1 = inf.nextInt() - 1;
+	    int c1 = inf.nextInt() - 1;
+	    int r2 = inf.nextInt() - 1;
+	    int c2 = inf.nextInt() - 1;
+	    return numWays(board, r1, c1, r2, c2, time);
+	}
+	catch(FileNotFoundException e){
+	}
+	return 0;
+    }
+
+    private static int numWays(int[][]ary, int r1, int c1, int r2, int c2, int moves){
+	if (r1 >= 0 && r1 < ary.length &&
+	    c1 >= 0 && c1 < ary[0].length &&
+	    r2 >= 0 && r2 < ary.length &&
+	    c2 >= 0 && c2 < ary[0].length){
+	    if (ary[r1][c1] == -1 || ary[r2][c2] == -1){
+		return 0;
+	    }
+	    else if (moves == 0){
+		if (r1 == r2 && c1 == c2){
+		    return 1;
+		}
+		else{
+		    return 0;
+		}
+	    }
+	    else{
+		return numWays(ary, r1, c1, r2 + 1, c2    , moves - 1) +
+		    numWays(ary, r1, c1, r2 - 1, c2    , moves - 1) +
+		    numWays(ary, r1, c1, r2    , c2 + 1, moves - 1) +
+		    numWays(ary, r1, c1, r2    , c2 - 1, moves - 1);
+	    }
+	}
+	else{
+	    return 0;
+	}
     }
 
     public static void main(String[]args){
 	USACO test = new USACO();
 	System.out.println(test.bronze("test1.txt"));
+	System.out.println(test.silver("silverTest1.txt"));
     }
 }
