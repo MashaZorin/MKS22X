@@ -5,8 +5,9 @@ public class Quick{
 	int start = 0;
 	int end = data.length - 1;
 	int index = part(data, start, end);
+	System.out.println(index);
+	System.out.println(k);
 	while (index != k){
-	    System.out.println(part(data, start, end));
 	    if (k < index){
 		end = index - 1;
 	    }
@@ -19,33 +20,52 @@ public class Quick{
     }
 
     public static int part(int[]data, int start, int end){
+	//System.out.println(start);
+	//System.out.println(end);
 	Random rand = new Random();
 	int pIndex = rand.nextInt(end - start + 1) + start;
-	System.out.println(pIndex);
+	//System.out.println(pIndex);
 	int pivot = data[pIndex];
 	int[] newData = new int[end - start + 1];
 	int beg = 0;
 	int fin = end - start;
+	int ans = 0;
 	for (int i = start; i <= end; i ++){
+	    //System.out.println(i);
 	    if (data[i] > pivot){
 		newData[fin] = data[i];
 		if (i != end){
 		    fin --;
+		}
+		else{
+		    ans = fin - 1;
 		}
 	    }
 	    else if (data[i] < pivot){
 		newData[beg] = data[i];
 		if (i != end){
 		    beg ++;
-		    System.out.println("here");
+		    //System.out.println("here");
+		}
+		else{
+		    ans = beg + 1;
 		}
 	    }
 	}
 	for (int i = 0; i < end - start + 1; i ++){
 	    data[start + i] = newData[i];
 	}
+	printAry(data);
 	//System.out.println(beg);
-	return beg + 1 + start;
+	return ans;
+    }
+
+    public static void printAry(int[]ary){
+	String str = "";
+	for (int i = 0; i < ary.length; i ++){
+	    str += (ary[i] + ", ");
+	}
+	System.out.println(str);
     }
 
     public static void main(String[]args){
