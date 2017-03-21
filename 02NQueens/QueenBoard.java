@@ -84,8 +84,11 @@ public class QueenBoard{
      *The board should be reset after this is run.    
 
      */
+    public void countSolutions(){
+	countSolutionsH(0);
+    }
 
-    public void countSolutions(int col){
+    public void countSolutionsH(int col){
         if (solutionCount < 0){
 	    solutionCount = 0;
 	}
@@ -108,7 +111,7 @@ public class QueenBoard{
 			    }
 			}
 		    }
-		    countSolutions(col + 1);
+		    countSolutionsH(col + 1);
 		    board[col][row] = 0;
 		    for (int i = 0; i < board.length * board[0].length; i ++){
 			int c = i % board.length;
@@ -139,8 +142,8 @@ public class QueenBoard{
 	    int c = i % board.length;
 	    board[c][r] = 0;
 	}
-	countSolutions(0);
-    	return solutionCount;
+	countSolutions();
+    	return solutionCount/2;
     }
 
     /**toString
