@@ -142,8 +142,7 @@ public class QueenBoard{
 	    int c = i % board.length;
 	    board[c][r] = 0;
 	}
-	countSolutions();
-    	return solutionCount/2;
+    	return solutionCount;
     }
 
     /**toString
