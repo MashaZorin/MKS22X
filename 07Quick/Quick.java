@@ -1,9 +1,10 @@
-import java.util.Random;
 public class Quick{
     public static void quicksort(int[]ary){
-	int lo = 0;
-	int hi = ary.length - 1;
-	quickSortH(ary, lo, hi);
+	if (ary.length > 0){
+	    int lo = 0;
+	    int hi = ary.length - 1;
+	    quickSortH(ary, lo, hi);
+	}
     }
 
     private static void quickSortH(int[]ary, int lo, int hi){
@@ -42,31 +43,5 @@ public class Quick{
     public static int quickselect(int[]ary, int k){
 	quicksort(ary);
 	return ary[k];
-    }
-
-    public static void printAry(int[]ary){
-	String str = "";
-	for (int i = 0; i < ary.length; i ++){
-	    str +=(ary[i] + ", ");
-	}
-	System.out.println(str);
-    }
-
-    public static void main(String[]args){
-	Random rand  = new Random();
-	for (int i = 0; i < 20; i ++){
-	    int[]ary = new int[i];
-	    for (int j = 0; j < i; j ++){
-		ary[j] = rand.nextInt(i);
-	    }
-	    printAry(ary);
-	    quicksort(ary);
-	    printAry(ary);
-	}
-	int[]ary = {3,3,3,2,6,7,4,1,0,0,9,4,5,8,0,5};
-	printAry(ary);
-	quicksort(ary);
-	printAry(ary);
-	System.out.println(quickselect(ary, 5));
     }
 }
