@@ -3,6 +3,8 @@ public class MyLinkedList{
     private int size;
 
     public boolean add(int value){
+	add(size - 1, value);
+	return true;
     }
 
     public int size(){
@@ -23,7 +25,12 @@ public class MyLinkedList{
     public int get(int index){
 	if (index < 0 || index >= size){
 	    throw new IndexOutOfBoundsException();
-	}	
+	}
+	LNode current = start;
+	for (int i = 0; i <= index; i ++){
+	    current = current.next();
+	}
+	return current.getValue();
     }
 
     //has exceptions
@@ -39,6 +46,16 @@ public class MyLinkedList{
     }
 
     public int indexOf(int value){
+	LNode current = start;
+	while (current != null && current.getValue() != value){
+	    current.next();
+	}
+	if (current == null){
+	    return -1;
+	}
+	else{
+	    return current.getValue();
+	}
     }
 
     //has exceptions
