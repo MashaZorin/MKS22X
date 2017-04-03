@@ -12,8 +12,16 @@ public class LNode{
 	node = null;
     }
 
-    public LNode(){
-	value = 0;
-	node = null;
+    public LNode next(){
+	this = node;
+	return this;
+    }
+
+    public boolean hasMoreNodes(){
+	return this != null;
+    }
+
+    public int getValue(){
+	return value;
     }
 }
