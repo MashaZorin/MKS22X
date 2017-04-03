@@ -13,15 +13,21 @@ public class LNode{
     }
 
     public LNode next(){
-	this = node;
-	return this;
+	return node;
     }
 
-    public boolean hasMoreNodes(){
-	return this != null;
-    }
 
     public int getValue(){
 	return value;
+    }
+
+    public int setValue(int newVal){
+	int old = value;
+	value = newVal;
+	return old;
+    }
+    
+    public void setNode(LNode newNode){
+	node = newNode;
     }
 }

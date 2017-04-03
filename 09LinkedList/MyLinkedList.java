@@ -12,7 +12,7 @@ public class MyLinkedList{
     public String toString(){
 	String str = "";
 	LNode current = start;
-	while(current.hasMoreNodes()){
+	while(current != null){
 	    str += current.getValue() + " ,";
 	    current = current.next();
 	}
@@ -30,7 +30,12 @@ public class MyLinkedList{
     public int set(int index, int newValue){
 	if (index < 0 || index >= size){
 	    throw new IndexOutOfBoundsException();
-	}	
+	}
+	LNode current = start;
+	for (int i = 0; i <= index; i ++){
+	    current = current.next();
+	}
+	return current.setValue(newValue);
     }
 
     public int indexOf(int value){
@@ -41,6 +46,12 @@ public class MyLinkedList{
 	if (index < 0 || index > size){
 	    throw new IndexOutOfBoundsException();
 	}
+	LNode current = start;
+	for (int i = 0; i <= index; i ++){
+	    current = current.next();
+	}
+	LNode temp = new LNode(value, current.next());
+	current.setNode(temp);
     }
 
     //has exceptions
@@ -48,5 +59,13 @@ public class MyLinkedList{
 	if (index < 0 || index >= size){
 	    throw new IndexOutOfBoundsException();
 	}
+	LNode current = start;
+	for (int i = 0; i < index; i ++){
+	    current = current.next();
+	}
+	int oldVal = current.next().getValue();
+	LNode temp = current.next().next();
+	current.setNode(temp);
+	return oldVal;
     }
 }
