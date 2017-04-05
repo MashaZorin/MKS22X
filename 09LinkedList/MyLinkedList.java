@@ -2,6 +2,10 @@ public class MyLinkedList{
     private LNode start;
     private int size;
 
+    public MyLinkedList(){
+	size = 0;
+    }
+
     public boolean add(int value){
 	add(size - 1, value);
 	return true;
@@ -15,7 +19,7 @@ public class MyLinkedList{
 	String str = "";
 	LNode current = start;
 	while(current != null){
-	    str += current.getValue() + " ,";
+	    str += current.toString() + "\n";
 	    current = current.next();
 	}
 	return str;
@@ -63,12 +67,17 @@ public class MyLinkedList{
 	if (index < 0 || index > size){
 	    throw new IndexOutOfBoundsException();
 	}
-	LNode current = start;
-	for (int i = 0; i <= index; i ++){
-	    current = current.next();
+	if (start == null){
+	    start = new LNode(value);
 	}
-	LNode temp = new LNode(value, current.next());
-	current.setNode(temp);
+	else{
+	    LNode current = start;
+	    for (int i = 0; i < index; i ++){
+		current = current.next();
+	    }
+	    current
+	}
+	size ++;
     }
 
     //has exceptions
@@ -82,7 +91,71 @@ public class MyLinkedList{
 	}
 	int oldVal = current.next().getValue();
 	LNode temp = current.next().next();
-	current.setNode(temp);
+	current.setNextNode(temp);
+	size --;
 	return oldVal;
+    }
+
+
+
+
+    public class LNode{
+	private int value;
+	private LNode before;
+	private LNode after;
+
+	public LNode(int v, LNode l){
+	    value = v;
+	    after = l;
+	}
+
+	public LNode(int v){
+	    value = v;
+	}
+
+	public LNode next(){
+	    return after;
+	}
+
+	public LNode back(){
+	    return before;
+	}
+
+
+	public int getValue(){
+	    return value;
+	}
+
+	public int setValue(int newVal){
+	    int old = value;
+	    value = newVal;
+	    return old;
+	}
+    
+	public void setNextNode(LNode newNode){
+	    after = newNode;
+	}
+
+	public void setPreNode(LNode newNode){
+	    before = newNode;
+	}
+
+	public String toString(){
+	    String pre = "";
+	    if (before == null){
+		pre = "null";
+	    }
+	    else{
+		pre += before.getValue();
+	    }
+	    String post = "";
+	    if (after == null){
+		post = "null";
+	    }
+	    else{
+		post += after.getValue();
+	    }
+	    return pre + ", " + getValue() + ", " + post;
+	}
     }
 }
