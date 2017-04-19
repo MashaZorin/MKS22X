@@ -31,7 +31,7 @@ public class MyLinkedList{
 	    throw new IndexOutOfBoundsException();
 	}
 	LNode current = start;
-	for (int i = 0; i <= index; i ++){
+	for (int i = 0; i < index; i ++){
 	    current = current.next();
 	}
 	return current.getValue();
@@ -43,7 +43,7 @@ public class MyLinkedList{
 	    throw new IndexOutOfBoundsException();
 	}
 	LNode current = start;
-	for (int i = 0; i <= index; i ++){
+	for (int i = 0; i < index; i ++){
 	    current = current.next();
 	}
 	return current.setValue(newValue);
@@ -51,14 +51,16 @@ public class MyLinkedList{
 
     public int indexOf(int value){
 	LNode current = start;
+	int index = 0;
 	while (current != null && current.getValue() != value){
-	    current.next();
+	    current = current.next();
+	    index ++;
 	}
 	if (current == null){
 	    return -1;
 	}
 	else{
-	    return current.getValue();
+	    return index;
 	}
     }
 
