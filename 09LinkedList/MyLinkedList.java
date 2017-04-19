@@ -111,8 +111,15 @@ public class MyLinkedList{
 	    current = current.next();
 	}
 	int oldVal = current.getValue();
-	current.back().setNextNode(current.next());
-	current.next().setPreNode(current.back());
+	if (index == 0){
+	    start = current.next();
+	}
+	if (current.back() != null){
+	    current.back().setNextNode(current.next());
+	}
+	if (current.next() != null){
+	    current.next().setPreNode(current.back());
+	}
 	size --;
 	return oldVal;
     }
