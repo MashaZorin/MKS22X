@@ -70,12 +70,31 @@ public class MyLinkedList{
 	if (start == null){
 	    start = new LNode(value);
 	}
-	else{
+	else if (index == 0){
+	    LNode temp = new LNode(value);
+	    temp.setNextNode(start);
+	    start.setPreNode(temp);
+	    start = temp;
+	}
+	else if (index == size){
 	    LNode current = start;
-	    for (int i = 0; i < index; i ++){
+	    for (int i = 0; i < index - 1; i ++){
 		current = current.next();
 	    }
-	    current
+	    LNode temp = new LNode(value);
+	    temp.setPreNode(current);
+	    current.setNextNode(temp);
+	}
+	else{
+	    LNode current = start;
+	    for (int i = 0; i < index - 1; i ++){
+		current = current.next();
+	    }
+	    LNode temp = new LNode(value);
+	    temp.setNextNode(current.next());
+	    temp.setPreNode(current);
+	    current.setNextNode(temp);
+	    current.next().next().setPreNode(temp);
 	}
 	size ++;
     }
@@ -89,9 +108,9 @@ public class MyLinkedList{
 	for (int i = 0; i < index; i ++){
 	    current = current.next();
 	}
-	int oldVal = current.next().getValue();
-	LNode temp = current.next().next();
-	current.setNextNode(temp);
+	int oldVal = current.getValue();
+	current.back().setNextNode(current.next());
+	current.next().setPreNode(current.back());
 	size --;
 	return oldVal;
     }
@@ -104,9 +123,10 @@ public class MyLinkedList{
 	private LNode before;
 	private LNode after;
 
-	public LNode(int v, LNode l){
+	public LNode(int v, LNode a, LNode b){
 	    value = v;
-	    after = l;
+	    after = a;
+	    before = b;
 	}
 
 	public LNode(int v){
