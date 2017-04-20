@@ -1,9 +1,15 @@
-public class MyLinkedList{
+import java.util.*;
+
+public class MyLinkedList implements Iterable<Integer>{
     private LNode start;
     private int size;
 
     public MyLinkedList(){
 	size = 0;
+    }
+
+    public Iterator<Integer> iterator(){
+	return new MyLinkedListIterator(this);
     }
 
     public boolean add(int value){
@@ -125,9 +131,36 @@ public class MyLinkedList{
     }
 
 
+    public class MyLinkedListIterator implements Iterator<Integer>{
+	private MyLinkedList list;
+	private LNode current;
 
+	public MyLinkedListIterator(MyLinkedList myList){
+	    current = new LNode(0);
+	    current.setNextNode(start);
+	    list = myList;
+	}
 
-    public class LNode{
+	public boolean hasNext(){
+	    return current.next() != null;
+	}
+
+	public Integer next(){
+	    if (hasNext()){
+		current = current.next();
+		return current.getValue();
+	    }
+	    else{
+		throw new NoSuchElementException();
+	    }
+	}
+
+	public void remove(){
+	    throw new UnsupportedOperationException();
+	}
+    }
+
+    private class LNode{
 	private int value;
 	private LNode before;
 	private LNode after;

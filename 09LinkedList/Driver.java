@@ -1,3 +1,4 @@
+import java.util.*;
 public class Driver{
     public static void main(String[]args){
 	MyLinkedList list = new MyLinkedList();
@@ -54,6 +55,24 @@ public class Driver{
 	}
 	catch(IndexOutOfBoundsException e){
 	    System.out.println("Passed: Index out of bounds: 2\n");
+	}
+
+	//test iterator
+	Iterator<Integer> listI = list.iterator();
+	System.out.println(listI.hasNext());
+	System.out.println(listI.next());
+	System.out.println(listI.hasNext());
+	try{
+	    System.out.println(listI.next());
+	}
+	catch(NoSuchElementException e){
+	    System.out.println("Passed: No such element (doesn't have next)\n");
+	}
+	try{
+	    listI.remove();
+	}
+	catch(UnsupportedOperationException e){
+	    System.out.println("Passed: Unsupported operation\n");
 	}
     }
 }
