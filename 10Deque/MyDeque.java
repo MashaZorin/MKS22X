@@ -52,11 +52,20 @@ public class MyDeque{
     }
 
     public String removeFirst(){
-	
+	if (size == 0){
+	    throw new NoSuchElementException();
+	}
+	ary[front] = null;
+	front = (front + 1) % ary.length;
 	size --;
     }
 
     public String removeLast(){
+	if (size == 0){
+	    throw new NoSuchElementException();
+	}
+	ary[back - 1] = null;
+	back = (back - 1) % ary.length;
 	size --;
     }
 
