@@ -55,23 +55,35 @@ public class MyDeque{
 	if (size == 0){
 	    throw new NoSuchElementException();
 	}
+	String old = ary[front];
 	ary[front] = null;
 	front = (front + 1) % ary.length;
 	size --;
+	return old;
     }
 
     public String removeLast(){
 	if (size == 0){
 	    throw new NoSuchElementException();
 	}
-	ary[back - 1] = null;
+	String old = ary[back - 1];
+	ary[(back - 1) % ary.length] = null;
 	back = (back - 1) % ary.length;
 	size --;
+	return old;
     }
 
     public String getFirst(){
+	if (size == 0){
+	    throw new NoSuchElementException();
+	}
+	return ary[front];
     }
 
     public String getLast(){
+	if (size == 0){
+	    throw new NoSuchElementException();
+	}
+	return ary[(back - 1) % ary.length];
     }
 }
