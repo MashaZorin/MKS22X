@@ -18,18 +18,46 @@ public class MyDeque{
 	}
 	front = 0;
 	back = size;
+	ary = temp;
     }
 
     public void addFirst(String str){
+	if (str == null){
+	    throw new NullPointerException();
+	}
+	if (size == ary.length){
+	    doubleAry();
+	}
+	if (size == 0){
+	    ary[front] = str;
+	    back ++;
+	}
+	else{
+	    front = (front - 1) % ary.length;
+	    ary[front] = str;
+	}
+	size ++;
     }
 
     public void addLast(String str){
+	if (str == null){
+	    throw new NullPointerException();
+	}
+	if (size == ary.length){
+	    doubleAry();
+	}
+	ary[back] = str;
+	back = (back + 1) % ary.length;
+	size ++;
     }
 
     public String removeFirst(){
+	
+	size --;
     }
 
     public String removeLast(){
+	size --;
     }
 
     public String getFirst(){
