@@ -1,3 +1,4 @@
+import java.util.*;
 public class MyDeque{
     private String[] ary;
     private int front;
@@ -21,6 +22,15 @@ public class MyDeque{
 	ary = temp;
     }
 
+    private static int mod(int num, int div){
+	if (num >= 0){
+	    return num % div;
+	}
+	else{
+	    return num % div + div;
+	}
+    }
+
     public void addFirst(String str){
 	if (str == null){
 	    throw new NullPointerException();
@@ -33,7 +43,7 @@ public class MyDeque{
 	    back ++;
 	}
 	else{
-	    front = (front - 1) % ary.length;
+	    front = mod(front - 1, ary.length);
 	    ary[front] = str;
 	}
 	size ++;
@@ -47,7 +57,7 @@ public class MyDeque{
 	    doubleAry();
 	}
 	ary[back] = str;
-	back = (back + 1) % ary.length;
+	back = mod(back + 1,  ary.length);
 	size ++;
     }
 
@@ -57,7 +67,7 @@ public class MyDeque{
 	}
 	String old = ary[front];
 	ary[front] = null;
-	front = (front + 1) % ary.length;
+	front = mod(front + 1, ary.length);
 	size --;
 	return old;
     }
@@ -67,8 +77,8 @@ public class MyDeque{
 	    throw new NoSuchElementException();
 	}
 	String old = ary[back - 1];
-	ary[(back - 1) % ary.length] = null;
-	back = (back - 1) % ary.length;
+	ary[mod(back - 1, ary.length)] = null;
+	back = mod(back - 1, ary.length);
 	size --;
 	return old;
     }
@@ -84,6 +94,26 @@ public class MyDeque{
 	if (size == 0){
 	    throw new NoSuchElementException();
 	}
-	return ary[(back - 1) % ary.length];
+	return ary[mod(back - 1, ary.length)];
+    }
+
+    public String toString(){
+	String str = "";
+	if (size != 0){
+	    if (front < back){
+		for (int i = front; i < back; i ++){
+		    str += ary[i] + ", ";
+		}
+	    }
+	    else{
+		for (int i = front; i < ary.length; i ++){
+		    str += ary[i] + ", ";
+		}
+		for (int i = 0; i < back; i ++){
+		    str += ary[i] + ", ";
+		}
+	    }
+	}
+	return str;
     }
 }
