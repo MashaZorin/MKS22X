@@ -22,13 +22,13 @@ public class MyHeap{
 	heap[size + 1] = s;
 	int index = size + 1;
 	if (max){
-	    while (index != 1 && heap[index].compareTo(heap[index / 2]) > 0){
+	    while (index > 1 && heap[index].compareTo(heap[index / 2]) > 0){
 		pushDown(index);
 		index = index / 2;
 	    }
 	}
 	else{
-	    while (index != 1 && heap[index].compareTo(heap[index / 2]) < 0){
+	    while (index > 1 && heap[index].compareTo(heap[index / 2]) < 0){
 		pushDown(index);
 		index = index / 2;
 	    }
@@ -37,7 +37,14 @@ public class MyHeap{
     }
 
     public String remove(){
-	
+	String old = heap[1];
+	heap[1] = heap[size];
+	heap[size] = null;
+	size --;
+	while (index * 2 <= size){
+	    index = pushUp(index);
+	}
+	return old;
     }
 
     public String peek(){
@@ -45,7 +52,47 @@ public class MyHeap{
     }
 
     private int pushUp(int index){
-	int right
+	int left = index * 2;
+	int right = left + 1;
+	if (left < size){
+	    if (right < size){
+		if (max){
+		    if (heap[left].compareTo(heap[right]) > 0){
+			String temp = heap[left];
+			heap[left] = heap[index];
+			heap[index] = temp;
+			return left;
+		    }
+		    else{
+			String temp = heap[right];
+			heap[right] = heap[index];
+			heap[index] = temp;
+			return right;
+		    }
+		}
+		else{
+		    if (heap[left].compareTo(heap[right]) < 0){
+			String temp = heap[left];
+			heap[left] = heap[index];
+			heap[index] = temp;
+			return left;
+		    }
+		    else{
+			String temp = heap[right];
+			heap[right] = heap[index];
+			heap[index] = temp;
+			return right;
+		    }
+		}
+	    }
+	    else{
+		String temp = heap[left];
+		heap[left] = heap[index];
+		heap[index] = temp;
+		return left;
+	    }
+	}
+	return size;
     }
 
     private void pushDown(int index){
@@ -60,5 +107,16 @@ public class MyHeap{
 	    temp[i] = heap[i];
 	}
 	heap = temp;
+    }
+
+    public String toString(){
+	String str = "";
+	for (int i = 1; i < size; i = i * 2){
+	    for (j = i; j < i * 2; j ++){
+		str += heap[j] + " ";
+	    }
+	    str += "\n";
+	}
+	return str;
     }
 }
