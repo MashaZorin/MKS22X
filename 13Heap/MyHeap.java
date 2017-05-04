@@ -22,14 +22,14 @@ public class MyHeap{
 	heap[size + 1] = s;
 	int index = size + 1;
 	if (max){
-	    while (index != 1 && heap[index] > heap[index / 2]){
-		pushUp(index);
+	    while (index != 1 && heap[index].compareTo(heap[index / 2]) > 0){
+		pushDown(index);
 		index = index / 2;
 	    }
 	}
 	else{
-	    while (index != 1 && heap[index] < heap[index 1 2]){
-		pushUp(index);
+	    while (index != 1 && heap[index].compareTo(heap[index / 2]) < 0){
+		pushDown(index);
 		index = index / 2;
 	    }
 	}
@@ -37,13 +37,15 @@ public class MyHeap{
     }
 
     public String remove(){
+	
     }
 
     public String peek(){
 	return heap[i];
     }
 
-    private void pushUp(){
+    private int pushUp(int index){
+	int right
     }
 
     private void pushDown(int index){
