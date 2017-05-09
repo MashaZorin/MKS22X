@@ -159,7 +159,6 @@ public class MyHeap{
 
     private void pushUp(){
 	int parent;
-	String temp;
 	for (int index = size; index > 1; index = index / 2){
 	    parent = index / 2;
 	    if (max){
@@ -182,5 +181,60 @@ public class MyHeap{
     }
 
     private void pushDown(){
+	int index = 1;
+	int right;
+	int left;
+	while (index * 2 < size){
+	    right = index * 2 + 1;
+	    left = index * 2;
+	    if (max){
+		if (heap[right].compareTo(heap[left]) > 0){
+		    if (heap[right].compareTo(heap[index]) > 0){
+			swap(right, index);
+			index = right;
+		    }
+		    else{
+			index = size;
+		    }
+		}
+		else{
+		    if (heap[left].compareTo(heap[index]) > 0){
+			swap(left , index);
+			index = left;
+		    }
+		    else{
+			index = size;
+		    }
+		}
+	    }
+	    else{
+		if (heap[right].compareTo(heap[left]) < 0){
+		    if (heap[right].compareTo(heap[index]) < 0){
+			swap(right, index);
+			index = right;
+		    }
+		    else{
+			index = size;
+		    }
+		}
+		else{
+		    if (heap[left].compareTo(heap[index]) < 0){
+			swap(left , index);
+			index = left;
+		    }
+		    else{
+			index = size;
+		    }
+		}
+	    }
+	}
+	if (index * 2 = size){
+	    if (max && heap[index * 2].compareTo(heap[index]) > 0){
+		swap(index * 2, index);
+	    }
+	    else if (min && heap[index * 2].compareTo(heap[index]) < 0){
+		swap(index * 2, index);
+	    }
+	}
     }
 }
