@@ -118,7 +118,7 @@ public class MyHeap{
 
     private void doubleSize(){
 	String[] temp = new String[heap.length * 2];
-	for (int i = 1; i < size; i ++){
+	for (int i = 1; i <= size; i ++){
 	    temp[i] = heap[i];
 	}
 	heap = temp;
@@ -155,6 +155,7 @@ public class MyHeap{
 	heap[size] = null;
 	size --;
 	pushDown();
+	return old;
     }
 
     private void pushUp(){
@@ -228,13 +229,20 @@ public class MyHeap{
 		}
 	    }
 	}
-	if (index * 2 = size){
+	if (index * 2 == size){
 	    if (max && heap[index * 2].compareTo(heap[index]) > 0){
 		swap(index * 2, index);
 	    }
-	    else if (min && heap[index * 2].compareTo(heap[index]) < 0){
+	    else if (!max && heap[index * 2].compareTo(heap[index]) < 0){
 		swap(index * 2, index);
 	    }
 	}
+    }
+
+    //precondition: index1 and index2 are in bounds
+    private void swap(int index1, int index2){
+	String temp = heap[index1];
+	heap[index1] = heap[index2];
+	heap[index2] = temp;
     }
 }
