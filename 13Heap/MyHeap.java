@@ -141,12 +141,44 @@ public class MyHeap{
     //pushDown checks children
 
     public void add(String s){
+	if (size + 1 == heap.length){
+	    doubleSize();
+	}
+	size ++;
+	heap[size] = s;
+	pushUp();
     }
 
     public String remove(){
+	String old = heap[1];
+	heap[1] = heap[size];
+	heap[size] = null;
+	size --;
+	pushDown();
     }
 
     private void pushUp(){
+	int parent;
+	String temp;
+	for (int index = size; index > 1; index = index / 2){
+	    parent = index / 2;
+	    if (max){
+		if (heap[parent].compareTo(heap[index]) < 0){
+		    swap(parent, index);
+		}
+		else{
+		    index = 1;
+		}
+	    }
+	    else{
+		if (heap[parent].compareTo(heap[index]) > 0){
+		    swap(parent, index);
+		}
+		else{
+		    index = 1;
+		}
+	    }
+	}
     }
 
     private void pushDown(){
