@@ -60,7 +60,7 @@ public class MyHeap{
     public int remove(){
 	int old = heap[1];
 	heap[1] = heap[size];
-	heap[size] = null;
+	heap[size] = 0;
 	size --;
 	pushDown();
 	return old;
