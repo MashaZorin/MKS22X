@@ -39,15 +39,15 @@ public class RunningMedian{
 	}
     }
 
-    public int getMedian(){
+    public double getMedian(){
 	if (sizeMin == sizeMax){
-	    return (min.peek() + max.peek()) / 2;
+	    return (min.peek() + max.peek()) / 2.0;
 	}
 	else if (sizeMin > sizeMax){
-	    return min.peek();
+	    return 0.0 + min.peek();
 	}
 	else{
-	    return max.peek();
+	    return 0.0 + max.peek();
 	}
     }
 }
