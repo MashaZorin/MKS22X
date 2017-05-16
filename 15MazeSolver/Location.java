@@ -42,7 +42,7 @@ public class Location implements Comparable<Location>{
 	return aStar;
     }
 
-    public int CompareTo(Location other){
+    public int compareTo(Location other){
 	int dist;
 	int otherDist;
 	if (aStar){
