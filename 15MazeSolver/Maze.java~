@@ -147,12 +147,4 @@ public class Maze{
     }
     return ans;
   }
-
-    public int getMaxRows(){
-	return maxRows;
-    }
-
-    public int getMaxCols(){
-	return maxCols;
-    }
 }
